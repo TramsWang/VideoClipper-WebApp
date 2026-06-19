@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>VideoClipper - {{ task.task_id }}</title>
+    <link rel="stylesheet" href="/static/app.css" />
+  </head>
+  <body>
+    <main class="shell task-shell" data-task-id="{{ task.task_id }}">
+      <header class="task-header">
+        <div>
+          <a class="back-link" href="/">返回上传</a>
+          <h1>任务 {{ task.task_id }}</h1>
+        </div>
+        <div class="status-badge" id="task-status">{{ task.status }}</div>
+      </header>
+
+      <section class="task-grid">
+        <section class="panel meta-panel">
+          <h2>任务信息</h2>
+          <dl class="meta-list">
+            <div>
+              <dt>原文件</dt>
+              <dd>{{ task.original_filename }}</dd>
+            </div>
+            <div>
+              <dt>语言</dt>
+              <dd>{{ "中文" if task.language == "zh" else "英文" }}</dd>
+            </div>
+            <div>
+              <dt>模式</dt>
+              <dd>{{ task.mode }}</dd>
+            </div>
+            <div>
+              <dt>创建时间</dt>
+              <dd>{{ task.created_at }}</dd>
+            </div>
+          </dl>
+          <p id="task-error" class="error-line"></p>
+        </section>
+
+        <section class="panel log-panel">
+          <div class="section-heading">
+            <h2>日志</h2>
+            <button id="copy-log-button" class="secondary-button" type="button">复制</button>
+          </div>
+          <pre id="log-output" class="log-output"></pre>
+        </section>
+      </section>
+
+      <section id="result-panel" class="panel result-panel hidden">
+        <div class="section-heading">
+          <h2>结果</h2>
+          <a id="subtitle-download" class="secondary-link" href="#">下载 TSV</a>
+        </div>
+
+        <div class="result-grid">
+          <section class="subtitle-section">
+            <h3 id="subtitle-title">字幕</h3>
+            <div class="table-wrap">
+              <table class="subtitle-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>开始</th>
+                    <th>结束</th>
+                    <th>文本</th>
+                  </tr>
+                </thead>
+                <tbody id="subtitle-body"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="clip-section">
+            <h3>视频片段</h3>
+            <div id="clip-list" class="clip-list"></div>
+            <video id="clip-player" class="clip-player" controls preload="metadata"></video>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>

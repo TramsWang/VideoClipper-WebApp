@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>VideoClipper</title>
+    <link rel="stylesheet" href="/static/app.css" />
+  </head>
+  <body>
+    <main class="shell upload-shell">
+      <section class="panel upload-panel">
+        <div class="panel-heading">
+          <div>
+            <h1>VideoClipper</h1>
+            <p>上传视频，选择语言，自动生成字幕和视频片段。</p>
+          </div>
+          <span class="limit">最大 {{ max_upload_mb }} MB</span>
+        </div>
+
+        <form id="upload-form" class="upload-form">
+          <label class="field">
+            <span>视频文件</span>
+            <input
+              id="video-file"
+              name="file"
+              type="file"
+              accept=".mp4,.mov,.mkv,.webm,.avi,video/*"
+              required
+            />
+          </label>
+
+          <label class="field">
+            <span>语言</span>
+            <select id="language" name="language" required>
+              <option value="zh">中文</option>
+              <option value="en">英文</option>
+            </select>
+          </label>
+
+          <button id="submit-button" class="primary-button" type="submit">开始裁剪</button>
+          <p id="upload-status" class="status-line" role="status"></p>
+        </form>
+      </section>
+    </main>
+
+    <script>
+      window.VideoClipperConfig = {
+        maxUploadBytes: {{ max_upload_mb }} * 1024 * 1024,
+        allowedExtensions: {{ allowed_extensions | tojson }},
+      };
+    </script>
+    <script src="/static/app.js"></script>
+  </body>
+</html>

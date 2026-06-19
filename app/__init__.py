@@ -1,0 +1,1 @@
+"""VideoClipper Web App package."""
