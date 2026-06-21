@@ -157,33 +157,47 @@
     const subtitleDownload = document.querySelector("#subtitle-download");
     const subtitleTitle = document.querySelector("#subtitle-title");
     const subtitleBody = document.querySelector("#subtitle-body");
-    const clipList = document.querySelector("#clip-list");
     const player = document.querySelector("#clip-player");
+    let activeRow = null;
+
+    function playClip(row, clip) {
+      if (!clip) {
+        return;
+      }
+      if (activeRow) {
+        activeRow.classList.remove("is-active");
+      }
+      activeRow = row;
+      activeRow.classList.add("is-active");
+      player.src = clip.url;
+      player.play();
+    }
 
     subtitleDownload.href = payload.subtitle.path;
     subtitleTitle.textContent = `字幕 ${payload.subtitle.filename}`;
     subtitleBody.innerHTML = "";
-    for (const row of payload.subtitle.rows) {
+    payload.subtitle.rows.forEach((row, rowIndex) => {
+      const clip = payload.clips[rowIndex];
       const tr = document.createElement("tr");
+      if (clip) {
+        tr.className = "is-playable";
+        tr.tabIndex = 0;
+        tr.setAttribute("role", "button");
+        tr.setAttribute("aria-label", `播放第 ${row.index} 条字幕对应视频片段`);
+        tr.addEventListener("click", () => playClip(tr, clip));
+        tr.addEventListener("keydown", (event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            playClip(tr, clip);
+          }
+        });
+      }
       appendCell(tr, row.index);
       appendCell(tr, row.start);
       appendCell(tr, row.end);
       appendCell(tr, row.text, "subtitle-text");
       subtitleBody.appendChild(tr);
-    }
-
-    clipList.innerHTML = "";
-    for (const clip of payload.clips) {
-      const button = document.createElement("button");
-      button.type = "button";
-      button.className = "clip-button";
-      button.textContent = clip.filename;
-      button.addEventListener("click", () => {
-        player.src = clip.url;
-        player.play();
-      });
-      clipList.appendChild(button);
-    }
+    });
 
     if (payload.clips.length > 0) {
       player.src = payload.clips[0].url;

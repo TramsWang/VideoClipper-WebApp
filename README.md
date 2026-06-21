@@ -42,7 +42,9 @@ Environment variables:
 | `VIDEOCLIPPER_TASK_ROOT` | `data/tasks` | Task data root |
 | `VIDEOCLIPPER_MAX_UPLOAD_MB` | `300` | Upload size limit |
 | `VIDEOCLIPPER_CONFIG_PATH` | `config/video_clipper.yaml` | Shared `auto_clipper` config |
-| `VIDEOCLIPPER_MODE` | `duration` | `basic`, `duration`, or `llm` |
+| `VIDEOCLIPPER_MODE` | `llm` | `basic`, `duration`, or `llm` |
 | `VIDEOCLIPPER_MAX_RUNNING_TASKS` | `1` | Local worker count |
 
 Task data is stored under `data/tasks/{task_id}` and is intended to be deleted manually.
+
+The default `llm` mode uses the `llm` section in `config/video_clipper.yaml` and expects `DEEPSEEK_API_KEY` to be set. To run without LLM merging, start the app with `VIDEOCLIPPER_MODE=duration`.

@@ -346,28 +346,17 @@ button,
   overflow-wrap: anywhere;
 }
 
-.clip-list {
-  display: grid;
-  gap: 8px;
-  max-height: 232px;
-  margin-top: 12px;
-  overflow: auto;
+.subtitle-table tr.is-playable {
+  cursor: pointer;
 }
 
-.clip-button {
-  width: 100%;
-  min-height: 36px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: #ffffff;
-  color: var(--text);
-  padding: 8px 10px;
-  text-align: left;
-  overflow-wrap: anywhere;
+.subtitle-table tr.is-playable:hover td,
+.subtitle-table tr.is-playable:focus td {
+  background: #eff6ff;
 }
 
-.clip-button:hover {
-  border-color: var(--primary);
+.subtitle-table tr.is-active td {
+  background: #dbeafe;
 }
 
 .clip-player {

@@ -73,7 +73,7 @@ def load_settings() -> Settings:
         task_root=_env_path("VIDEOCLIPPER_TASK_ROOT", "data/tasks"),
         max_upload_mb=max_upload_mb,
         config_path=_env_path("VIDEOCLIPPER_CONFIG_PATH", "config/video_clipper.yaml"),
-        video_clipper_mode=_env_mode("VIDEOCLIPPER_MODE", "duration"),
+        video_clipper_mode=_env_mode("VIDEOCLIPPER_MODE", "llm"),
         max_running_tasks=max_running_tasks,
         templates_dir=BASE_DIR / "app" / "templates",
         static_dir=BASE_DIR / "app" / "static",
